@@ -1,0 +1,18 @@
+{
+	"name": "madeorsk/codepostal",
+	"description": "Liste des codes postaux français en une dépendance.",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Madeorsk",
+			"email": "madeorsk@protonmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"\\": "src/"
+		}
+	},
+	"require": {}
+}

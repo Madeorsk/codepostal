@@ -11,8 +11,10 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"\\": "src/"
+			"Madeorsk\\": "src/Madeorsk"
 		}
 	},
-	"require": {}
+	"require": {
+		"php": "^7.4"
+	}
 }

@@ -8,3 +8,10 @@ composer.lock
 
 # IDEA
 *.iml
+
+
+# App
+*.csv
+/*.php
+!generate.php
+

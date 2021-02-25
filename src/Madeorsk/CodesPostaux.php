@@ -99,6 +99,10 @@ class CodesPostaux
 	 */
 	public function startingWith(string $start): array
 	{
+		if (strlen($start) >= 5)
+			// La longueur de la chaine est de 5 au moins, on a donc un code postal complet, on le récupère directement.
+			return !empty($code_postal = $this->get($start)) ? [ $code_postal ] : [];
+
 		// On découpe la chaine de début du code postal.
 		$start = str_split($start);
 
@@ -116,5 +120,26 @@ class CodesPostaux
 		// On a exploré tout le tableau du début du code postal.
 		// On peut convertir le niveau actuel en liste de codes postaux.
 		return $this->levelToCodesPostaux($current_level);
+	}
+
+	/**
+	 * Obtient les données du code postal passé en paramètre.
+	 * @param string $code_postal_str - Le code postal pour lequel récupérer les données.
+	 * @return CodePostal|null - Les données du code postal correspondant.
+	 */
+	public function get(string $code_postal_str): ?CodePostal
+	{
+		// On découpe le code postal pour récupérer la liste des codes postaux commençant comme lui
+		// (le dernier caractère n'étant pas indexé, on ne peut pas récupérer directement un code postal commençant par 5 chiffres).
+		$code_postal_start = substr($code_postal_str, 0, 4);
+		$codes_postaux = $this->startingWith($code_postal_start);
+
+		foreach ($codes_postaux as $code_postal)
+			// Pour chaque code postal récupéré, on regarde s'il correspond à celui cherché.
+			if ($code_postal->getCode() == $code_postal_str)
+				// Si le code postal courant est celui cherché, on le retourne directement.
+				return $code_postal;
+
+		return null; // On n'a trouvé aucun code postal correspondant à celui cherché.
 	}
 }
